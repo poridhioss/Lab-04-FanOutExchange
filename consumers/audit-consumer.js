@@ -18,11 +18,11 @@ class AuditConsumer {
       durable: true
     });
     
-    console.log('📝 Audit Consumer connected');
+    console.log('Audit Consumer connected');
   }
   
   async consume() {
-    console.log('📝 Waiting for actions to audit log...\n');
+    console.log('Waiting for actions to audit log...\n');
     
     this.channel.consume(
       config.rabbitmq.queues.audit,
@@ -38,7 +38,7 @@ class AuditConsumer {
   }
   
   async logAction(action) {
-    console.log(`📝 [AUDIT] Logging: ${action.action}`);
+    console.log(`[AUDIT] Logging: ${action.action}`);
     
     const auditEntry = {
       logId: this.generateLogId(),
@@ -50,9 +50,9 @@ class AuditConsumer {
     };
     
     // Simulate writing to audit log
-    console.log(`   📄 Audit Entry:`, auditEntry);
-    console.log(`   💾 Stored to audit database`);
-    console.log(`   ✅ Compliance: ${auditEntry.compliance.join(', ')}`);
+    console.log(`   Audit Entry:`, auditEntry);
+    console.log(`   Stored to audit database`);
+    console.log(`   Compliance: ${auditEntry.compliance.join(', ')}`);
     
     // Actually write to file (optional)
     await this.writeToFile(auditEntry);
@@ -92,7 +92,7 @@ class AuditConsumer {
       logs.push(entry);
       await fs.writeFile(this.logFile, JSON.stringify(logs, null, 2));
     } catch (error) {
-      console.error('   ⚠️  Failed to write to audit log file:', error.message);
+      console.error('   Failed to write to audit log file:', error.message);
     }
   }
 }
@@ -104,7 +104,7 @@ async function main() {
     await consumer.connect();
     await consumer.consume();
   } catch (error) {
-    console.error('❌ Audit consumer error:', error.message);
+    console.error('Audit consumer error:', error.message);
     process.exit(1);
   }
 }

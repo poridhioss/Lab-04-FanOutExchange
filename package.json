@@ -1,5 +1,5 @@
 {
-  "name": "lab5-fanout-exchange",
+  "name": "lab4-fanout-exchange",
   "version": "1.0.0",
   "description": "RabbitMQ Fanout Exchange - User Action Broadcasting",
   "main": "action-publisher.js",

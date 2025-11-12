@@ -15,11 +15,11 @@ class NotificationConsumer {
       durable: true
     });
     
-    console.log('📧 Notification Consumer connected');
+    console.log('Notification Consumer connected');
   }
   
   async consume() {
-    console.log('📧 Waiting for actions to send notifications...\n');
+    console.log('Waiting for actions to send notifications...\n');
     
     this.channel.consume(
       config.rabbitmq.queues.notification,
@@ -35,7 +35,7 @@ class NotificationConsumer {
   }
   
   sendNotifications(action) {
-    console.log(`📧 [NOTIFICATION] Processing: ${action.action}`);
+    console.log(`[NOTIFICATION] Processing: ${action.action}`);
     
     // Determine notification type based on action
     switch (action.action) {
@@ -49,25 +49,25 @@ class NotificationConsumer {
         this.sendProfileChangeNotification(action);
         break;
       default:
-        console.log(`   ℹ️  No notification configured for: ${action.action}`);
+        console.log(`   No notification configured for: ${action.action}`);
     }
     console.log('');
   }
   
   sendLoginAlert(action) {
-    console.log(`   📧 Sending login alert email to user ${action.userId}`);
-    console.log(`   📱 Sending push notification: "New login from ${action.data.device}"`);
+    console.log(`   Sending login alert email to user ${action.userId}`);
+    console.log(`   Sending push notification: "New login from ${action.data.device}"`);
   }
   
   sendPurchaseConfirmation(action) {
-    console.log(`   📧 Sending purchase confirmation email`);
-    console.log(`   💰 Order: ${action.data.productId} - $${action.data.amount}`);
-    console.log(`   📲 SMS: "Your order has been confirmed!"`);
+    console.log(`   Sending purchase confirmation email`);
+    console.log(`   Order: ${action.data.productId} - $${action.data.amount}`);
+    console.log(`   SMS: "Your order has been confirmed!"`);
   }
   
   sendProfileChangeNotification(action) {
-    console.log(`   📧 Email: "Your ${action.data.field} has been updated"`);
-    console.log(`   🔔 Security alert sent`);
+    console.log(`   Email: "Your ${action.data.field} has been updated"`);
+    console.log(`   Security alert sent`);
   }
 }
 
@@ -78,7 +78,7 @@ async function main() {
     await consumer.connect();
     await consumer.consume();
   } catch (error) {
-    console.error('❌ Notification consumer error:', error.message);
+    console.error('Notification consumer error:', error.message);
     process.exit(1);
   }
 }

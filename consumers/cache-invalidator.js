@@ -19,11 +19,11 @@ class CacheInvalidator {
       durable: true
     });
     
-    console.log('🗑️  Cache Invalidator connected');
+    console.log('Cache Invalidator connected');
   }
   
   async consume() {
-    console.log('🗑️  Waiting for actions to invalidate cache...\n');
+    console.log('Waiting for actions to invalidate cache...\n');
     
     this.channel.consume(
       config.rabbitmq.queues.cache,
@@ -39,7 +39,7 @@ class CacheInvalidator {
   }
   
   invalidateCache(action) {
-    console.log(`🗑️  [CACHE] Processing: ${action.action}`);
+    console.log(`[CACHE] Processing: ${action.action}`);
     
     // Determine what to invalidate based on action
     switch (action.action) {
@@ -52,27 +52,27 @@ class CacheInvalidator {
         break;
       case 'login':
         // Login doesn't require cache invalidation
-        console.log(`   ℹ️  No cache invalidation needed for login`);
+        console.log(`   No cache invalidation needed for login`);
         this.cacheStats.skipped++;
         break;
       default:
-        console.log(`   ℹ️  No cache invalidation configured`);
+        console.log(`   No cache invalidation configured`);
         this.cacheStats.skipped++;
     }
     
-    console.log(`   📊 Stats: ${this.cacheStats.invalidated} invalidated, ${this.cacheStats.skipped} skipped`);
+    console.log(`   Stats: ${this.cacheStats.invalidated} invalidated, ${this.cacheStats.skipped} skipped`);
     console.log('');
   }
   
   invalidateUserCache(userId) {
-    console.log(`   🗑️  Invalidating user cache: ${userId}`);
-    console.log(`   🔄 Keys cleared: user:${userId}:profile, user:${userId}:preferences`);
+    console.log(`   Invalidating user cache: ${userId}`);
+    console.log(`   Keys cleared: user:${userId}:profile, user:${userId}:preferences`);
     this.cacheStats.invalidated++;
   }
   
   invalidateProductCache(productId) {
-    console.log(`   🗑️  Invalidating product cache: ${productId}`);
-    console.log(`   🔄 Keys cleared: product:${productId}:details`);
+    console.log(`   Invalidating product cache: ${productId}`);
+    console.log(`   Keys cleared: product:${productId}:details`);
     this.cacheStats.invalidated++;
   }
 }
@@ -84,7 +84,7 @@ async function main() {
     await consumer.connect();
     await consumer.consume();
   } catch (error) {
-    console.error('❌ Cache invalidator error:', error.message);
+    console.error('Cache invalidator error:', error.message);
     process.exit(1);
   }
 }

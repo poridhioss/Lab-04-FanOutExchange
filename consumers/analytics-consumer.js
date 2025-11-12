@@ -22,11 +22,11 @@ class AnalyticsConsumer {
       durable: true
     });
     
-    console.log('📊 Analytics Consumer connected');
+    console.log('Analytics Consumer connected');
   }
   
   async consume() {
-    console.log('📊 Waiting for user actions to analyze...\n');
+    console.log('Waiting for user actions to analyze...\n');
     
     this.channel.consume(
       config.rabbitmq.queues.analytics,
@@ -44,7 +44,7 @@ class AnalyticsConsumer {
   }
   
   processAction(action) {
-    console.log(`📊 [ANALYTICS] Processing: ${action.action}`);
+    console.log(`[ANALYTICS] Processing: ${action.action}`);
     
     // Update statistics
     if (this.stats.hasOwnProperty(action.action)) {
@@ -58,7 +58,7 @@ class AnalyticsConsumer {
     console.log(`   Data:`, action.data);
     
     // Show current stats
-    console.log(`   📈 Current Stats:`, this.stats);
+    console.log(`   Current Stats:`, this.stats);
     console.log('');
   }
 }
@@ -71,7 +71,7 @@ async function main() {
     await consumer.connect();
     await consumer.consume();
   } catch (error) {
-    console.error('❌ Analytics consumer error:', error.message);
+    console.error('Analytics consumer error:', error.message);
     process.exit(1);
   }
 }

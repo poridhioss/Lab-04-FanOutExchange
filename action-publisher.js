@@ -41,7 +41,7 @@ class ActionPublisher {
       }
     );
     
-    console.log(`📤 Published: ${action} for user ${userId}`);
+    console.log(`Published: ${action} for user ${userId}`);
     return message;
   }
   
@@ -59,7 +59,7 @@ async function main() {
     await publisher.connect();
     
     // Simulate different user actions
-    console.log('\n🚀 Publishing user actions...\n');
+    console.log('\Publishing user actions...\n');
     
     // Action 1: User Login
     await publisher.publishAction('login', 'user123', {
@@ -85,14 +85,14 @@ async function main() {
       newValue: 'new@example.com'
     });
     
-    console.log('\n✅ All actions published!\n');
+    console.log('\nAll actions published!\n');
     
     // Keep process alive for a moment
     await sleep(2000);
     await publisher.close();
     
   } catch (error) {
-    console.error('❌ Publisher error:', error.message);
+    console.error('Publisher error:', error.message);
     process.exit(1);
   }
 }
